@@ -1,0 +1,18 @@
+{
+  "name": "leave-management",
+  "version": "1.0.0",
+  "description": "A fully functional, premium-designed **Employee Leave Management System** built with pure HTML, CSS, and JavaScript. No frameworks. No backend required — uses localStorage as a simulated database.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "mysql2": "^3.22.0"
+  }
+}

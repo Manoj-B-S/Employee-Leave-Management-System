@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LeaveSync — Employee Leave Management System</title>
+  <meta name="description" content="LeaveSync: A modern, secure employee leave management system for teams of all sizes." />
+  <link rel="stylesheet" href="css/login.css" />
+</head>
+<body>
+
+  <!-- Animated Background -->
+  <div class="bg-glow"></div>
+  <div class="bg-grid"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <div class="login-container">
+
+    <!-- Logo -->
+    <div class="login-logo">
+      <div class="logo-icon-lg">🗓️</div>
+      <div class="logo-text-lg">
+        <strong>LeaveSync</strong>
+        <span>Leave Management System</span>
+      </div>
+    </div>
+
+    <!-- Login Card -->
+    <div class="login-card">
+      <h1 class="login-title">Welcome Back 👋</h1>
+      <p class="login-subtitle">Sign in to manage your leave requests.</p>
+
+      <!-- Demo Accounts -->
+      <div class="demo-accounts">
+        <div class="demo-title">⚡ Quick Login — Click to autofill</div>
+        <div class="demo-list">
+          <div class="demo-item" onclick="fillLogin('admin@company.com','admin123')">
+            <div class="demo-item-left">
+              <div class="demo-avatar">AM</div>
+              <div class="demo-info">
+                <strong>Admin Manager</strong>
+                <span>Manager · HR Department</span>
+              </div>
+            </div>
+            <span class="demo-use">Use →</span>
+          </div>
+          <div class="demo-item" onclick="fillLogin('sarah@company.com','pass123')">
+            <div class="demo-item-left">
+              <div class="demo-avatar">SJ</div>
+              <div class="demo-info">
+                <strong>Sarah Johnson</strong>
+                <span>Manager · Engineering</span>
+              </div>
+            </div>
+            <span class="demo-use">Use →</span>
+          </div>
+          <div class="demo-item" onclick="fillLogin('john@company.com','pass123')">
+            <div class="demo-item-left">
+              <div class="demo-avatar">JS</div>
+              <div class="demo-info">
+                <strong>John Smith</strong>
+                <span>Employee · Engineering</span>
+              </div>
+            </div>
+            <span class="demo-use">Use →</span>
+          </div>
+          <div class="demo-item" onclick="fillLogin('emily@company.com','pass123')">
+            <div class="demo-item-left">
+              <div class="demo-avatar">ED</div>
+              <div class="demo-info">
+                <strong>Emily Davis</strong>
+                <span>Employee · Marketing</span>
+              </div>
+            </div>
+            <span class="demo-use">Use →</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Error Message -->
+      <div id="login-error" class="login-error" style="display:none;"></div>
+
+      <!-- Form -->
+      <form id="login-form" novalidate>
+        <div class="form-group-lg">
+          <label for="email" class="form-label">Email Address</label>
+          <div class="input-wrap">
+            <span class="input-icon">📧</span>
+            <input
+              type="email"
+              id="email"
+              class="form-input-lg"
+              placeholder="you@company.com"
+              autocomplete="email"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="form-group-lg">
+          <label for="password" class="form-label">Password</label>
+          <div class="input-wrap">
+            <span class="input-icon">🔒</span>
+            <input
+              type="password"
+              id="password"
+              class="form-input-lg"
+              placeholder="Enter your password"
+              autocomplete="current-password"
+              required
+            />
+          </div>
+        </div>
+
+        <button type="submit" class="btn-login" id="login-btn">
+          <span id="login-btn-text">Sign In</span>
+          <span id="login-spinner" style="display:none;">⏳</span>
+        </button>
+      </form>
+
+      <div class="login-footer">
+        &copy; 2026 LeaveSync &mdash; All rights reserved.<br/>
+        <small>Built with HTML, CSS &amp; JavaScript</small>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/db.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    // Redirect if already logged in
+    DB.init();
+    if (Auth.isLoggedIn()) window.location.href = 'dashboard.html';
+
+    // Auto-fill helper
+    function fillLogin(email, pwd) {
+      document.getElementById('email').value    = email;
+      document.getElementById('password').value = pwd;
+      document.getElementById('email').focus();
+      // Subtle highlight effect
+      document.getElementById('email').style.borderColor = '#6c63ff';
+      document.getElementById('password').style.borderColor = '#6c63ff';
+    }
+
+    // Login form submit
+    document.getElementById('login-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const email    = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const errDiv   = document.getElementById('login-error');
+      const btnText  = document.getElementById('login-btn-text');
+      const spinner  = document.getElementById('login-spinner');
+
+      errDiv.style.display = 'none';
+
+      if (!email || !password) {
+        errDiv.textContent   = '⚠ Please enter both email and password.';
+        errDiv.style.display = 'block';
+        return;
+      }
+
+      // Simulate loading
+      btnText.textContent   = 'Signing in…';
+      spinner.style.display = 'inline';
+
+      try {
+        const user = await Auth.login(email, password);
+        if (user) {
+          window.location.href = 'dashboard.html';
+        } else {
+          btnText.textContent   = 'Sign In';
+          spinner.style.display = 'none';
+          errDiv.textContent    = '❌ Invalid email or password. Try using a demo account above.';
+          errDiv.style.display  = 'block';
+          errDiv.style.animation = 'none';
+          setTimeout(() => errDiv.style.animation = '', 10);
+        }
+      } catch (error) {
+        btnText.textContent   = 'Sign In';
+        spinner.style.display = 'none';
+        errDiv.textContent    = '❌ Server connecting error. Ensure server.js is running!';
+        errDiv.style.display  = 'block';
+      }
+    });
+  </script>
+
+</body>
+</html>
