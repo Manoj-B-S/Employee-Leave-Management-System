@@ -13,6 +13,18 @@ A fully functional, premium-designed **Employee Leave Management System** built 
 > ✅ No installation, no server, no dependencies needed!
 
 ---
+## 📸 Screenshots
+🔐 Login Page
+<img width="642" height="817" alt="Screenshot 2026-04-17 105958" src="https://github.com/user-attachments/assets/01126d10-401b-4b20-874c-038654643f84" />
+
+🧑‍💼 Admin Dashboard
+<img width="1880" height="821" alt="Screenshot 2026-04-17 105732" src="https://github.com/user-attachments/assets/84ac945a-82fd-49a3-9d9f-c066b6e0b9d2" />
+
+👨‍💻 Employee Dashboard
+<img width="1875" height="715" alt="Screenshot 2026-04-17 110033" src="https://github.com/user-attachments/assets/0a5e5ea2-d93e-4918-8c1a-a02b3b95b713" />
+
+👥 Team Overview
+<img width="1896" height="724" alt="Screenshot 2026-04-17 110114" src="https://github.com/user-attachments/assets/387bb815-9532-459e-824b-4de18f7848e2" />
 
 ## 🔐 Demo Accounts
 
